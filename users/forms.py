@@ -56,3 +56,15 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'image', 'username', 'email')
+
+
+class UserProfileEditForm(forms.ModelForm):
+
+    class Meta:
+        model = ShopUserProfile
+        fields = ('first_name', 'aboutme', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
