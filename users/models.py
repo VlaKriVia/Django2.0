@@ -22,6 +22,7 @@ class User(AbstractUser):
         else:
             return True
 
+
 class ShopUserProfile(models.Model):
     MALE = 'M'
     FEMALE = 'W'
@@ -31,7 +32,6 @@ class ShopUserProfile(models.Model):
         (FEMALE, 'W')
     )
 
-
     users = models.OneToOneField(
         User,
         unique=True,
@@ -40,13 +40,11 @@ class ShopUserProfile(models.Model):
         on_delete=models.CASCADE
     )
 
-
     tagline = models.CharField(
         verbose_name="тэги",
         max_length=128,
         blank=True
     )
-
 
     aboutme = models.TextField(
         verbose_name="о себе",
@@ -54,20 +52,17 @@ class ShopUserProfile(models.Model):
         blank=True
     )
 
-
     gender = models.CharField(
         verbose_name='пол',
         max_length=1,
-        choises=GENDER_CHOISES,
+        choices=GENDER_CHOISES,
         blank=True
     )
-
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             ShopUserProfile.create(user=instance)
-
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):

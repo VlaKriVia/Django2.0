@@ -4,7 +4,7 @@ import random
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django import forms
 
-from users.models import User
+from users.models import User, ShopUserProfile
 
 
 class UserLoginForm(AuthenticationForm):
@@ -46,6 +46,7 @@ class UserRegistrationForm(UserCreationForm):
 
         return user
 
+
 class UserProfileForm(UserChangeForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
@@ -65,6 +66,6 @@ class UserProfileEditForm(forms.ModelForm):
         fields = ('first_name', 'aboutme', 'gender')
 
     def __init__(self, *args, **kwargs):
-        super(ShopUserProfileEditForm, self).__init__(*args, **kwargs)
+        super(UserProfileEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'

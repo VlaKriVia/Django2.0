@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
-from user.models import User
+from users.models import User
 from django.db import transaction
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
