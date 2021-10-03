@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.db import models
+
+from products.models import Product
 
 
 #class OrderItemQuerySet(models.QuerySet):
@@ -30,7 +33,7 @@ class Order(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE()
+        on_delete=models.CASCADE
     )
 
     created = models.DateTimeField(verbose_name='создан', auto_now_add=True)
@@ -63,27 +66,8 @@ class Order(models.Model):
         items = self.orderitems.select_related()
         return sum(list(map(lambda x: x.quantity * x.product.price, items)))
 
-    # переопределяем метод, удаляющий объект
-    #def delete(self):
-        #for item in self.orderitems.select_related():
-            #item.product.quantity += item.quantity
-            #item.product.save()
-
-        #self.is_active = False
-        #self.save()
-
-    #def save(self, *args, **kwargs):
-        #if self.pk:
-            #self.product.quantity -= self.quantity - \
-                                     #self.__class__.get_item(self.pk).quantity
-        #else:
-            #self.product.quantity -= self.quantity
-        #self.product.save()
-        #super(self.__class__, self).save(*args, **kwargs)
-
 
 class OrderItem(models.Model):
-    object = OrderItemQuerySet.as_manager()
 
     order = models.ForeignKey(
         Order,
